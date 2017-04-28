@@ -1,4 +1,4 @@
-from python_training.model.group import Group
+from model.group import Group
 
 
 def test_modify_first_group(app):
