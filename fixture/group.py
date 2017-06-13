@@ -57,9 +57,6 @@ class GroupHelper:
         self.return_to_groups_page()
         self.group_cache = None
 
-    def modify_first_group(self):
-        self.modify_group_by_index(0)
-
     def modify_group_by_index(self, index, new_group_data):
         wd = self.app.wd
         self.open_groups_page()

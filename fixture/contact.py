@@ -60,9 +60,6 @@ class ContactHelper:
             wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
 
-    def modify_first_contact(self):
-        self.modify_contact_by_index(0)
-
     def modify_contact_by_index(self, index, new_contact_data):
         wd = self.app.wd
         self.edit_contact_by_index(index)
