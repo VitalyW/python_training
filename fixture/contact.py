@@ -19,6 +19,10 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_elements_by_css_selector("[name='selected[]']")[index].click()
 
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+
     def edit_contact_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_xpath("//*[@title='Edit']")[index].click()
@@ -29,6 +33,13 @@ class ContactHelper:
     def delete_contact_by_index(self, index):
         wd = self.app.wd
         self.select_contact_by_index(index)
+        wd.find_element_by_xpath("//*[@value='Delete']").click()
+        wd.switch_to_alert().accept()
+        self.contact_cache = None
+
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.select_contact_by_id(id)
         wd.find_element_by_xpath("//*[@value='Delete']").click()
         wd.switch_to_alert().accept()
         self.contact_cache = None
@@ -73,8 +84,8 @@ class ContactHelper:
         self.app.open_home_page()
         return len(wd.find_elements_by_css_selector("[name='selected[]']"))
 
-    contact_cache = None
 
+    contact_cache = None
 
 
     def get_contact_list(self):
