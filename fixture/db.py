@@ -17,7 +17,7 @@ class DbFixture:
         list = []
         cursor = self.connection.cursor()
         try:
-            cursor.execute("select group_id, group_name, group_header, group_footer from group_list")
+            cursor.execute("select group_id, group_name, group_header, group_footer from group_list where deprecated='0000-00-00 00:00:00'")
             for row in cursor:
                 (id, name, header, footer) = row
                 list.append(Group(id=str(id), name=name, header=header, footer=footer))
@@ -29,15 +29,16 @@ class DbFixture:
         list = []
         cursor = self.connection.cursor()
         try:
-            cursor.execute("select id, firstname, lastname, middlename, nickname, "
-                           "address, company, home, mobile, work, phone2, email, email2, email3, homepage, notes, address2 from addressbook")
+            cursor.execute("select id, firstname, lastname, middlename, nickname, address, company, home, mobile, work,"
+                           "phone2, email, email2, email3, homepage, notes, address2 from addressbook where deprecated='0000-00-00 00:00:00'")
             for row in cursor:
-                (id, firstname, lastname, middlename, nickname, address, company, home, mobile, work, phone2, email, email2, email3, homepage, notes, address2) = row
+                (id, firstname, lastname, middlename, nickname, address, company, home, mobile, work, phone2, email,
+                 email2, email3, homepage, notes, address2) = row
                 print row
                 list.append(Contact(id=str(id), lastname=lastname, firstname=firstname, middlename=middlename, nickname=nickname,
-                                    address=address, company=company, email=email,
-                                    home=home, mobilephone=mobile, workphone=work, secondaryphone=phone2, email2=email2,
-                                    email3=email3, homephone=homepage, notes=notes, address2=address2))
+                                    address=address, company=company, email=email, home=home, mobilephone=mobile,
+                                    workphone=work, secondaryphone=phone2, email2=email2, email3=email3,
+                                    homephone=homepage, notes=notes, address2=address2))
         finally:
             cursor.close()
         return list
